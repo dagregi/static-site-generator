@@ -1,6 +1,6 @@
 import unittest
 
-from htmlnode import HTMLNode, LeafNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -45,7 +45,25 @@ class TestHTMLNode(unittest.TestCase):
         leaf_node = LeafNode("p", "This is a paragraph of text.")
         leaf_node2 = LeafNode("a", "Click me!", {"href": "https://boot.dev"})
         self.assertEqual("<p>This is a paragraph of text.</p>", leaf_node.to_html())
-        self.assertEqual('<a href="https://boot.dev">Click me!</a>', leaf_node2.to_html())
+        self.assertEqual(
+            '<a href="https://boot.dev">Click me!</a>', leaf_node2.to_html()
+        )
+
+    def test_parent_node(self):
+        leaf_node = LeafNode(None, "This is a text.")
+        leaf_node2 = LeafNode("a", "Click me!", {"href": "https://boot.dev"})
+        parent_node = ParentNode("div", [leaf_node, leaf_node2])
+        self.assertEqual(
+            '<div>This is a text.<a href="https://boot.dev">Click me!</a></div>',
+            parent_node.to_html(),
+        )
+    def test_parent_node_nesting(self):
+        leaf_node = LeafNode("b", "Bold")
+        leaf_node2 = LeafNode("i", "Italic")
+        leaf_node3 = LeafNode(None, "Look ma no tags!")
+        parent_node = ParentNode("p", [leaf_node, leaf_node2])
+        parent_node2 = ParentNode("div", [leaf_node3, parent_node])
+        self.assertEqual("<div>Look ma no tags!<p><b>Bold</b><i>Italic</i></p></div>", parent_node2.to_html())
 
 
 if __name__ == "__main__":
