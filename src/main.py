@@ -1,8 +1,8 @@
-import textnode
+from textnode import TextNode
 
 
 def main():
-    node = textnode.TextNode("Terminus", "italic", "https://terminus.io")
+    node = TextNode("Terminus", "italic", "https://terminus.io")
     print(node)
 
 

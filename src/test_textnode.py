@@ -8,6 +8,7 @@ from textnode import (
     text_type_code,
     text_type_image,
     text_type_link,
+    text_node_to_html_node,
 )
 
 
@@ -39,6 +40,14 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(
             "TextNode(This is a text node, text, https://www.boot.dev)", repr(node)
         )
+
+
+class TestTextNodeToHTMLNode(unittest.TestCase):
+    def test_conversion(self):
+        text_node = TextNode("This is a text node", text_type_text)
+        leaf_node = text_node_to_html_node(text_node)
+        self.assertEqual(leaf_node.tag, None)
+        self.assertEqual(leaf_node.value, text_node.text)
 
 
 if __name__ == "__main__":
