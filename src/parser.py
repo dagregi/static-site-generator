@@ -1,6 +1,32 @@
 import re
 
-from src.textnode import TextNode, text_type_text, text_type_link, text_type_image
+from src.textnode import (
+    TextNode,
+    text_type_text,
+    text_type_bold,
+    text_type_italic,
+    text_type_code,
+    text_type_link,
+    text_type_image,
+)
+
+
+def text_to_textnode(text):
+    return split_nodes_image(
+        split_nodes_link(
+            split_nodes_delimiter(
+                split_nodes_delimiter(
+                    split_nodes_delimiter(
+                        [TextNode(text, text_type_text)], "**", text_type_bold
+                    ),
+                    "*",
+                    text_type_italic,
+                ),
+                "`",
+                text_type_code,
+            )
+        )
+    )
 
 
 def split_nodes_delimiter(old_nodes, delimiter, text_type):
