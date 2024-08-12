@@ -9,7 +9,7 @@ from src.textnode import (
     text_type_image,
     text_type_link,
 )
-from src.parser import (
+from src.inline_parser import (
     split_nodes_delimiter,
     split_nodes_image,
     split_nodes_link,
@@ -19,7 +19,7 @@ from src.parser import (
 )
 
 
-class TestNodeDelimiter(unittest.TestCase):
+class TestInlineParser(unittest.TestCase):
     def test_bold(self):
         node = TextNode(
             "This is text with has **one** and **two** bolded words", text_type_text
@@ -66,8 +66,6 @@ class TestNodeDelimiter(unittest.TestCase):
             new_nodes,
         )
 
-
-class TestImageLink(unittest.TestCase):
     def test_image_extractor(self):
         line = "This is text with a ![rick roll](https://i.imgur.com/aKaOqIh.gif) and ![obi wan](https://i.imgur.com/fJRm4Vk.jpeg)"
         self.assertEqual(
