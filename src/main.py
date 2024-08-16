@@ -1,9 +1,8 @@
-from textnode import TextNode
+from page_generator import copy_contents
 
 
 def main():
-    node = TextNode("Terminus", "italic", "https://terminus.io")
-    print(node)
+    copy_contents("./static", "./public")
 
 
 main()
