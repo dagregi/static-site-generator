@@ -112,7 +112,7 @@ fn main() {
                     [
                         LeafNode(None, "Never forget the cats.\n", None),
                         LeafNode(
-                            "img", None, {"src": "https://randomcats.com", "alt": "cat"}
+                            "img", "", {"src": "https://randomcats.com", "alt": "cat"}
                         ),
                     ],
                     None,
