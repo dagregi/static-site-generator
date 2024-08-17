@@ -9,6 +9,21 @@ from block_parser import (
 )
 
 
+def generate_pages_recursive(from_dir, template_path, dest_dir):
+    for item in os.listdir(from_dir):
+        if os.path.isfile(f"{from_dir}/{item}"):
+            generate_page(
+                f"{from_dir}/{item}",
+                template_path,
+                f"{dest_dir}/{item.replace(".md", ".html")}",
+            )
+        else:
+            os.mkdir(f"{dest_dir}/{item}")
+            generate_pages_recursive(
+                f"{from_dir}/{item}", template_path, f"{dest_dir}/{item}"
+            )
+
+
 def generate_page(from_path, template_path, dest_path):
     print(f"Generating page from {from_path} to {dest_path} using {template_path}")
     markdown = open(from_path, "r").read()
