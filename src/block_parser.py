@@ -1,8 +1,8 @@
 import re
 
-from src.inline_parser import text_to_textnode
-from src.htmlnode import ParentNode, LeafNode
-from src.textnode import text_node_to_html_node
+from inline_parser import text_to_textnode
+from htmlnode import ParentNode, LeafNode
+from textnode import text_node_to_html_node
 
 block_type_paragraph = "paragraph"
 block_type_heading = "heading"

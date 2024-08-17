@@ -1,6 +1,37 @@
 import os
 import shutil
 
+from block_parser import (
+    block_to_block_type,
+    markdown_to_blocks,
+    block_type_heading,
+    markdown_to_htmlnode,
+)
+
+
+def generate_page(from_path, template_path, dest_path):
+    print(f"Generating page from {from_path} to {dest_path} using {template_path}")
+    markdown = open(from_path, "r").read()
+    template = open(template_path, "r").read()
+    dest = open(f"{dest_path}", "w")
+
+    full_html = template.replace("{{ Title }}", extract_title(markdown)).replace(
+        "{{ Content }}", markdown_to_htmlnode(markdown).to_html()
+    )
+
+    dest.write(full_html)
+    dest.close()
+
+
+def extract_title(markdown):
+    for block in markdown_to_blocks(markdown):
+        if (
+            block_to_block_type(block) == block_type_heading
+            and len(block.split(" ", 1)[0]) == 1
+        ):
+            return block.split(" ", 1)[1]
+    raise Exception("Title not found")
+
 
 def copy_contents(from_dir, to_dir):
     def copy(fro, to):
