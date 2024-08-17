@@ -7,8 +7,9 @@ generates and serves HTML files.
 
 To run the static site generator, execute the following command:
 
-```
+```bash
 ./main.sh
+# will generate files from examples in content directory
 ```
 
 Then, open a web browser and navigate to `http://localhost:8888` to view the 
